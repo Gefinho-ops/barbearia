@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme {
+  --color-ghostWhite: #f4f4f8;
+  --color-raisinBlack: #262730;
+  --color-zomp: #43aa8b;
+  --color-amaranth: #da3e52;
+  --color-bronze: #d58936;
+  --color-mustard: #FED766;
+  --color-dogwoodRose: #DC136C;
+  --color-pictonBlue: #4EA5D9;
+
+  --font-montserrat: "Montserrat", sans-serif;
+}
+

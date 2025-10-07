@@ -1,0 +1,30 @@
+views/admin/home.vue
+    - Terminar implementação do CardAgendaments com signborad (props/emits ou provide/inject e v-model.number).   OK
+    - Trabalhar a responsividade da página.                                                                       OK - Falta apenas o menu.
+    - Modo escuro.                                                                                                OK
+    - Corrigir pequenos detalhes de layout (fonte, margins/paddings).                                             OK
+    - Implementar mais tecnicas de acessibilidade (navegação por teclado).                                        OK
+    - configurar as notiificações (vue-toastify).         
+    - concertar o ativo do menu (seção selecionada deve ficar marcada).                                           OK
+    - Reanalisar nomeclaturas dos elementos (botões, inputs, etc).                                                OK
+    - Realizar commit.
+
+
+Documentar e refatorar todos os components
+Concertar lista de horarios do modal novo agendamento
+Criar a implementação do lembrar usuário na view Login
+validação de formulários (veevalidate + yup)
+real-time (socket.io-client)
+
+views/admin/clientes.vue
+    - definir dinamica de ativo/inativo no componente.
+    - configurar onMounted para buscar dados da public/data/clientes.json
+    - trabalhar responsividade.
+    - trabalhar modo escuro.
+    - acesso via teclado.
+    - tratar mensagem caso não haja clientes.
+    - criar modal de cadastro de cliente.
+    - configurar as notiificações (vue-toastify).
+    - criar a comunicação de QuickFilters e cliente.
+    - setar apenas cliente como parametro de busca do select.
+    - realizar commit.

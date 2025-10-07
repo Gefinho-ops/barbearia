@@ -1,0 +1,30 @@
+[
+    {
+        "data": "21/09/2025",
+        "horario": "14:00",
+        "cliente": "Felipe Barbosa",
+        "servico": "Degradê Navalhado",
+        "funcionario": "Douglas Vieira"
+    },
+    {
+        "data": "22/09/2025",
+        "horario": "09:00",
+        "cliente": "Jonatas Carlos",
+        "servico": "Social + Barba",
+        "funcionario": "Douglas Vieira"
+    },   
+    {
+        "data": "22/09/2025",
+        "horario": "15:30",
+        "cliente": "Manoel Gomes",
+        "servico": "Social",
+        "funcionario": "Pablo Raul Lins"
+    },   
+    {
+        "data": "22/09/2025",
+        "horario": "13:30",
+        "cliente": "Sílvio Souza",
+        "servico": "Degradê",
+        "funcionario": "Pablo Raul Lins"
+    }   
+]
