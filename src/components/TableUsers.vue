@@ -1,29 +1,29 @@
 <template>
     <section>
-        <table class="ml-[100px]">
-            <thead class="font-montserrat">
+       <table class="w-[900px]">
+            <thead class="border-b border-raisinBlack dark:border-ghostWhite">
                 <tr>
-                    <td>Nome</td>
-                    <td>Telefone</td>
-                    <td>Status</td>
+                    <td class="font-bold p-2.5 flex-1 dark:text-ghostWhite">Perfil</td>
+                    <td class="font-bold p-[10px] flex-1 dark:text-ghostWhite">Telefone</td>
+                    <td class="font-bold p-[10px] flex-1 dark:text-ghostWhite">Status</td>
+                    <td class="font-bold p-[10px] flex-1 dark:text-ghostWhite">Endereço</td>
                     <td></td>
                 </tr>
             </thead>
-            <tbody>
-                <tr v-for="value in source">
-                    <td>{{ cliente.nome }}</td>
-                    <td>{{ cliente.telefone }}</td>
-                    <td>{{ cliente.status }}</td>
-                    <td></td>
-                </tr>
+            <tbody class="border-b border-raisinBlack dark:border-ghostWhite">
+                <TableUsersRow v-for="cliente in clientes" :key="cliente.id" :cliente="cliente"/>
             </tbody>
         </table>
     </section>
 </template>
 
 <script setup>
-    defineProps({
-        cliente: {
+    //IMPORTAÇÃO DE COMPONENTES
+    import TableUsersRow from './TableUserRow.vue'
+
+    //DEFINIÇÃO DE PROPS
+    const props = defineProps({
+        clientes: {
             type: Object,
             required: true
         }

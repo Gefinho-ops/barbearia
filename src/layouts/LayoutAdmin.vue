@@ -15,7 +15,7 @@
 
       <!-- QuickFilters e FastButtons -->
       <div class="flex flex-col md:flex-col lg:flex-row lg:items-center justify-between px-4 md:px-6 lg:px-8 mt-4 gap-4">
-        <QuickFilters class="w-full md:w-full lg:w-[40%]" />
+        <QuickFilters :tipoFixo="buscaStore.tipoFixo" class="w-full md:w-full lg:w-[40%]" />
         <FastButtons class="w-full md:w-full lg:w-[55%]" />
       </div>
 
@@ -78,6 +78,7 @@
     import { useRouter } from 'vue-router';
 
     import { useAuthStore } from '../store/auth';
+    import { useAuthService } from '../composables/useAuthService';
     import { useBuscaStore } from '../store/busca';
     import { useModalStore } from '../store/modal';
 
@@ -89,6 +90,7 @@
     //INSTÂNCIAS
     const router = useRouter()
     const auth = useAuthStore()
+    const authService = useAuthService()
     const buscaStore = useBuscaStore()
     const modal = useModalStore()
 
@@ -105,7 +107,7 @@
     }
 
     function logout(){
-        auth.logout()
+        authService.logout()
         router.push('/login')
     }
 
@@ -118,5 +120,16 @@
     onMounted(async() => {
         const res = await fetch('/data/home.json')            //usar get (axios) quando testar com o back. fetch é apenas para testes.
         agendamentos.value = await res.json()               //quando usar get use -> res.data ao invés de await res/json.
+
+         // connect()                                                                              //Websocket para novos agendamentos.
+
+        // listen("novo-agendamento", (agendamento) => {
+        //     console.log("📡 Novo agendamento recebido:", agendamento)
+        //     agendamentos.value.push(agendamento)
+        // })
+        
+         // onUnmounted(() => {                                                                  //Desconectar websocket ao sair da página.
+    //     disconnect()
+    // })
     })
 </script>

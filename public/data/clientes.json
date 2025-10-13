@@ -4,9 +4,32 @@
         "nome":"Luis Felipe Alves",
         "foto_perfil":"",
         "email":"felipe.Alves@gmail.com",
-        "telefone":"(67) 99786-1322",
+        "telefone":"6797861322",
+        "status":"Ativo",
         "endereco":"Rua Fernando Ferrari, 217",
-        "genero":"Masculino",
-        "data_nascimento":"21/05/1995"
+        "generoSelecionado":"Masculino",
+        "nascimento":"21/05/1995"
+    },
+    {
+        "id":"2",
+        "nome":"João Paulo Farias",
+        "foto_perfil":"",
+        "email":"Farias112@gmail.com",
+        "telefone":"67996240150",
+        "status":"Inativo",
+        "endereco":"Rua Natal, 407",
+        "generoSelecionado":"Masculino",
+        "nascimento":"15/02/1998"
+    },
+    {
+        "id":"3",
+        "nome":"Rafel Lisboa",
+        "foto_perfil":"",
+        "email":"Lisboa_rafa@hotmail.com",
+        "telefone":"6796122420",
+        "status":"Ativo",
+        "endereco":"Rua Jaime Moreira, 113",
+        "generoSelecionado":"Masculino",
+        "nascimento":"11/08/1994"
     }
 ]

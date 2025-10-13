@@ -22,6 +22,31 @@
      
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+
+    <style>
+      /* Estilização de barra de rolagem (scroll) */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      /* Fundo do trilho */
+      ::-webkit-scrollbar-track {
+        background: #f0f0f0; 
+        border-radius: 10px;
+      }
+
+      /* A parte “rolável” */
+      ::-webkit-scrollbar-thumb {
+        background: #2c7a7b; /* cor da tua marca */
+        border-radius: 10px;
+      }
+
+      /* Quando o usuário passa o mouse */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #285e61;
+      }
+    </style>
     
   </body>
 </html>

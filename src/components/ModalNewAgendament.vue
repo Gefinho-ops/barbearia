@@ -28,8 +28,8 @@
             
             <div class="flex flex-col relative ml-[55px]">
               <button type="button" @click="toggleHorario"
-                class="flex items-center justify-between w-[220px] px-3 py-2 border border-zomp rounded-[10px] h-[35px] cursor-pointer bg-white dark:bg-ghostWhite dark:text-raisinBlack text-left shadow-sm hover:shadow-md transition-all duration-300">
-                <span class="dark:text-raisinBlack">{{ horarioSelecionado || "Selecione um horário" }}</span>
+                class="flex items-center justify-between w-[220px] px-3 py-2 border border-zomp rounded-[10px] h-[35px] cursor-pointer bg-ghostWhite text-raisinBlack dark:bg-raisinBlack dark:text-ghostWhite text-left shadow-sm hover:shadow-md transition-all duration-300">
+                <span class="text-raisinBlack dark:text-ghostWhite">{{ horarioSelecionado || "Selecione um horário" }}</span>
                 <i :class="dropdown ? 'bi-chevron-up' : 'bi-chevron-down'" class="bi text-zomp"></i>
               </button>
 
@@ -86,14 +86,15 @@
 
 <script setup>
     //IMPORTAÇÃO DE MÓDULOS
-    import { computed, watch } from 'vue'
     import { useModalStore } from '../store/modal'
-    import { ref } from 'vue'
+    import { ref, onMounted, computed, watch } from 'vue'
     import FlatPickr from 'vue-flatpickr-component'
     import 'flatpickr/dist/flatpickr.css'
     import { Portuguese } from 'flatpickr/dist/l10n/pt.js'
     import { useFormValidation } from '../composables/useFormValidation'
     import * as yup from 'yup'
+    import { useFormaCacheStore } from '../composables/formCache'
+import { toast } from 'vue3-toastify'
 
     //Define o schema yup com as regras de validação
     const schema = { 
@@ -102,11 +103,13 @@
         servico: yup.string().required('O serviço é obrigatório').min(3, 'O serviço deve ter pelo menos 3 caracteres'),
         dataSelecionada: yup.string().required('A data é obrigatória'),
         horarioSelecionado: yup.string().required('O horário é obrigatório'),
+        observacoes: yup.string().nullable(),
     }
 
     //INSTÂNCIAS
     const modal = useModalStore()
-    const { handleSubmit, resetForm, createField } = useFormValidation(schema)
+    const { handleSubmit, values,  resetForm, createField } = useFormValidation(schema)
+    const formCache = useFormaCacheStore()
 
     
     //DEFINIÇÃO DE ESTADOS REATIVOS
@@ -115,8 +118,9 @@
     const { value: servico, errorMessage: servicoError } = createField('servico')
     const { value: dataSelecionada, errorMessage: dataError } = createField('dataSelecionada')
     const { value: horarioSelecionado, errorMessage: horaError } = createField('horarioSelecionado')
+    const { value: observacoes } = createField('observacoes')
 
-    const horariosDisponiveis = ref(['08:00', '08:30', '09:00', '09:30', '10:00', '10:30'])
+    const horariosDisponiveis = ref(['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00'])
     const dropdown = ref(false)
 
     //Funções
@@ -132,8 +136,10 @@
     const onSubmit = handleSubmit((values) => {
       console.log('Formulário válido:', values)
       // aqui você pode enviar via API, por exemplo
+      formCache.limparForm('agendamento')
       resetForm()
       modal.close()
+      toast.success('Agendamento criado com sucesso!')
     })
 
     const close = () => modal.close()
@@ -148,12 +154,11 @@
 
     const open = computed(() => modal.scheduleOpen)
 
+
     //WATCH's
-    watch(() => open.value, (isOpen) => {                                     //watch para resetar o formulário quando fechar o modal
-      if(!isOpen){
-        resetForm()
-      }
-    })
+    watch(values, (novosDados) => {                                                // Sempre que o usuário alterar qualquer campo, salva no cache
+      formCache.salvarForm('agendamento', { ...novosDados })}, { deep: true })
+
 
     //Configurações do flatpickr
     const configData = {
@@ -163,11 +168,13 @@
       time_24hr: false,     // 24h
     }
 
-    const configHorario = {
-      locale: Portuguese,  // idioma
-      enableTime: true,    // se quiser hora também
-      noCalendar: true,     // não mostra calendário
-      dateFormat: 'H:i',    // formato só hora:minuto
-      time_24hr: true       // 24h
-    }
+
+    //HOOK's
+    onMounted(() => {
+      const cache = formCache.obterForm('agendamento')
+      if(cache){
+        resetForm({values: cache})
+      }
+
+    })
 </script>

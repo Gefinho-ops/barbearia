@@ -17,23 +17,32 @@
     import LabelCardAgendament from '../../components/LabelCardAgendament.vue';
 
     //IMPORTAÇÃO DE MÓDULOS
-    import { onMounted, ref, computed } from 'vue';
+    import { onMounted, onUnmounted, ref, computed, provide } from 'vue';
     import { useBuscaStore } from '../../store/busca';
+    import { useSocket } from '../../composables/useSocket';
 
     //INSTÂNCIAS
     const buscaStore = useBuscaStore()
+    const { connect, disconnect, listen, emit, connected } = useSocket("http://localhost:3000")
 
     //DEFINIÇÃO DE ESTADOS REATIVOS
     const agendamentos = ref([])
     const agendaDia = ref([])
     const dataHoje = ref(new Date())
 
+    provide('filtrosQuick', [
+        { label: 'Clientes', value: 'clientes' },
+        { label: 'Funcionários', value: 'funcionarios' },
+        { label: 'Serviços', value: 'sservicos' },
+    ])
+
+
 
     //COMPUTED`s
     const agendamentosFiltrados = computed(() => {
-        if (!buscaStore.termo) return agendaDia.value
+        if (!buscaStore.termoDebounced) return agendaDia.value
 
-        const termo = buscaStore.termo.toLowerCase()
+        const termo = buscaStore.termoDebounced.toLowerCase()
         
         return agendaDia.value.filter(a => {
             switch(selectBusca.value) {
@@ -51,6 +60,9 @@
 
     //HOOK's
     onMounted(async () => {
+        buscaStore.resetBusca()
+        buscaStore.setTipoBusca('clientes')
+
         try{
             const agenda = await fetch('/data/agendamentos.json')
             const dados = await agenda.json()
@@ -74,5 +86,6 @@
             console.error('Erro ao buscar agendamentos', err)
         }
     })
+
 
 </script>

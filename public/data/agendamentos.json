@@ -1,7 +1,7 @@
 [
     {
         "id":"1",
-        "data":"2025/10/04",
+        "data":"2025/10/10",
         "horario":"10:30",
         "servico":"Social + Barba",
         "cliente":"Pedro Cordeiro",
@@ -12,7 +12,7 @@
     },
     {
         "id":"2",
-        "data":"2025/10/04",
+        "data":"2025/10/10",
         "horario":"08:00",
         "servico":"Degradê",
         "cliente":"Marcos Antônio",

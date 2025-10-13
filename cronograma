@@ -7,24 +7,36 @@ views/admin/home.vue
     - configurar as notiificações (vue-toastify).         
     - concertar o ativo do menu (seção selecionada deve ficar marcada).                                           OK
     - Reanalisar nomeclaturas dos elementos (botões, inputs, etc).                                                OK
-    - Realizar commit.
+    - Realizar commit.                                                                                            OK
 
 
 Documentar e refatorar todos os components
-Concertar lista de horarios do modal novo agendamento
-Criar a implementação do lembrar usuário na view Login
-validação de formulários (veevalidate + yup)
-real-time (socket.io-client)
+Concertar lista de horarios do modal novo agendamento                                                             OK
+Criar a implementação do lembrar usuário na view Login                                                            OK
+validação de formulários (veevalidate + yup)                                                                      OK
+real-time (socket.io-client)                                                                                      OK
+estilizar scroll bar                                                                                              OK
+usar debounce em buscas dinâmicas                                                                                 OK
+usar cache de input (buscas e formulários)                                                                        OK
+controlar options do select via metadata                                                                          OK
+usar Imask para máscaras (telefone)                                                                               OK
 
 views/admin/clientes.vue
-    - definir dinamica de ativo/inativo no componente.
-    - configurar onMounted para buscar dados da public/data/clientes.json
-    - trabalhar responsividade.
-    - trabalhar modo escuro.
-    - acesso via teclado.
-    - tratar mensagem caso não haja clientes.
-    - criar modal de cadastro de cliente.
-    - configurar as notiificações (vue-toastify).
-    - criar a comunicação de QuickFilters e cliente.
-    - setar apenas cliente como parametro de busca do select.
+    - definir dinamica de ativo/inativo no componente.                                                            OK
+    - configurar onMounted para buscar dados da public/data/clientes.json                                         OK
+    - configurar QuickFilteers para fazer busca na tela cliente.                                                  OK
+    - trabalhar responsividade.                                                                                   OK
+    - trabalhar modo escuro.                                                                                      OK
+    - acesso via teclado.                                                                                         OK
+    - tratar mensagem caso não haja clientes.                                                                     OK
+    - criar modal de cadastro de cliente.                                                                         OK
+    - configurar as notiificações (vue-toastify).                                                                 OK
+    - criar a comunicação de QuickFilters e cliente.                                                              OK
+    - setar apenas cliente como parametro de busca do select.                                                     OK
+    - implemetar front do editar.                                                                                 OK
     - realizar commit.
+
+views/admin/funcionarios.vue
+
+
+LEMBRAR DE CONCERTAR LÓGICA DOS AGENDAMENTOS (AS BUSCAS SEMPRE SERÃO EM AGENDAMENTOS PORÉM POR TIPOS DE STATUS (PENDENTE, CONFIRMADO, CONCLUIDO, CANCELADO, RECUSADO))

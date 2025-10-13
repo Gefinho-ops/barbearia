@@ -15,8 +15,8 @@ const router = createRouter({
           component: () => import('../layouts/LayoutAdmin.vue'),
           meta: { requiresAuth: true, role: 'admin'},
           children: [
-            { path: 'home', name: 'admin-home', component: () => import('../views/admin/Home.vue')},
-            { path: 'clientes', name: 'admin-clientes', component: () => import('../views/admin/Clientes.vue')},
+            { path: 'home', name: 'admin-home', component: () => import('../views/admin/Home.vue'), meta: {filtrosQuick: [{ label: 'Clientes', value: 'clientes' }, { label: 'Funcionários', value: 'funcionarios' }, { label: 'Serviços', value: 'servicos' }]}},
+            { path: 'clientes', name: 'admin-clientes', component: () => import('../views/admin/Clientes.vue'), meta: {filtrosQuick: [{ label: 'Clientes', value: 'clientes' }]}},
             { path: 'funcionarios', name: 'admin-funcionarios', component: () => import('../views/admin/Funcionarios.vue')},
           ]
         },
