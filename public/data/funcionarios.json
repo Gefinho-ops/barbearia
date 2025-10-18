@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "foto_perfil":"",
+        "nome": "João Silva",
+        "email": "joaoSilva12@gmail.com",
+        "telefone": "11912345678",
+        "cargo": "Barbeiro",
+        "nascimento": "2022-01-15",
+        "generoSelecionado":"Masculino",
+        "endereco": "Rua das Flores, 123",
+        "especialidades":["social", "barba"]
+    },
+    {
+        "id": 2,
+        "foto_perfil":"",
+        "nome": "Pablo Raul",
+        "email": "Raul_Pablo@gmail.com",
+        "telefone": "67992271721",
+        "cargo": "Barbeiro",
+        "nascimento": "2024-07-12",
+        "generoSelecionado":"Masculino",
+        "endereco": "Rua Monte Alegre, 457",
+        "especialidades":["social", "barba", "degrade"]
+    }
+]

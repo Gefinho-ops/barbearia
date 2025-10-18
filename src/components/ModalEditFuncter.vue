@@ -2,7 +2,7 @@
     <div v-if="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
         <div class="bg-pictonBlue rounded-lg p-6 w-[800px] h-[450px] relative">
             <div class="w-[750px] h-[440px] z-50 bg-ghostWhite dark:bg-raisinBlack rounded-[10px] relative bottom-[20px] right-[20px]">
-                <h3 class="font-montserrat font-bold text-raisinBlack dark:text-ghostWhite text-[38px] pt-[30px] pl-[60px]">Editar <span class="text-pictonBlue">cliente</span></h3>
+                <h3 class="font-montserrat font-bold text-raisinBlack dark:text-ghostWhite text-[38px] pt-[30px] pl-[60px]">Editar <span class="text-pictonBlue">funcionário</span></h3>
                 <form @submit.prevent="onSubmit" class="ml-10">
 
                     <div class="flex gap-5 mt-5">
@@ -23,6 +23,30 @@
                         </div>
                         <div class="flex flex-1 flex-col">
                             <input type="text" v-model="endereco" class="dark:text-ghostWhite font-montserrat rounded-[10px] outline-none p-[5px] border border-pictonBlue w-[300px] focus:border-2" placeholder="Endereço:">
+                        </div>
+                    </div>
+
+                    <!-- LINHA 3 -->
+                    <div class="flex gap-5 mt-5">
+                        <div class="flex flex-1 flex-col">
+                            <input type="text" v-model="cargo" class="dark:text-ghostWhite font-montserrat rounded-[10px] outline-none p-[5px] border border-pictonBlue w-[300px] focus:border-2" placeholder="Cargo:"/>
+                            <p class="text-sm text-red-500">{{ cargoError }}</p>
+                        </div>
+
+                        <!-- ESPECIALIDADES -->
+                        <div class="flex flex-col mr-11">
+                        <button type="button" @click="toggleDropdown" class="flex justify-between items-center w-75 px-3 py-2 h-9 border border-pictonBlue rounded-lg bg-white dark:bg-raisinBlack dark:text-ghostWhite focus:ring-2 focus:ring-pictonBlue">
+                            <span>{{ especialidadesSelecionadas > 0 ? especialidadesSelecionadas.map(s => s.nome).join(", ") : "Selecione especialidades"}}</span>
+                            <i :class="dropdownOpen ? 'bi-chevron-up' : 'bi-chevron-down'" class="bi text-pictonBlue"></i>
+                        </button>
+
+                        <div v-if="dropdownOpen" class="absolute z-50 w-75 mt-11 max-h-48 overflow-y-auto border border-pictonBlue bg-white dark:bg-eerieBlack rounded-lg shadow-md">
+                            <div v-for="servico in servicos" :key="servico.id" class="flex items-center px-3 py-2 cursor-pointer hover:bg-pictonBlue hover:text-white transition-colors" @click="toggleSelecionado(servico)">
+                            <input type="checkbox" :checked="isSelecionado(servico)" class="mr-2 accent-pictonBlue" @change.stop/>
+                            <span>{{ servico.nome }}</span>
+                            </div>
+                        </div>
+                            <p class="text-sm text-red-500">{{ especialidadesError }}</p>
                         </div>
                     </div>
 
@@ -48,7 +72,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            
+
                             <div class="flex">
                                 <input type="text" class="hidden dark:text-ghostWhite border border-pictonBlue outline-none rounded-[10px] w-[80px] h-[35px] p-[5px] font-montserrat" v-model="generoSelecionado" readonly>
                             </div>
@@ -80,7 +104,7 @@
     import { toast } from 'vue3-toastify'
 
     //Define o schema yup com as regras de validação
-    const schema = { 
+    const schema = {
         nome: yup.string().required('O nome do cliente é obrigatório').min(3, 'O nome deve ter pelo menos 3 caracteres'),
         email: yup.string().required('O E-mail é obrigatório').min(3, 'O E-mail deve ter pelo menos 3 caracteres'),
         telefone: yup.string().required('O telefone é obrigatório').min(13, 'O telefone deve conter 11 números'),
@@ -98,17 +122,28 @@
     //ESTADOS REATIVOS
     const generosDisponiveis = ref(['Masculino', 'Feminino', 'Outro'])
     const dropdown = ref(false)
+    const dropdownOpen = ref(false)
 
     const { value: nome, errorMessage: nomeError } = createField('nome')
     const { value: email, errorMessage: emailError } = createField('email')
     const { value: telefone, errorMessage: telefoneError } = createField('telefone')
     const { value: endereco } = createField('endereco')
+    const { value: cargo, errorMessage: cargoError } = createField("cargo")
+    const { value: especialidades, errorMessage: especialidadesError } = createField("especialidades")
     const { value: nascimento, errorMessage: nascimentoError } = createField('nascimento')
     const { value: generoSelecionado, errorMessage: generoError } = createField('generoSelecionado')
-    
+
     const telefoneInput = ref(null)
     generoSelecionado.value = 'Masculino'
-    
+
+    const servicos = ref([
+        { id: 1, nome: "Corte" },
+        { id: 2, nome: "Barba" },
+        { id: 3, nome: "Hidratação" },
+        { id: 4, nome: "Sobrancelha" },
+        { id: 5, nome: "Navalhado" },
+        { id: 6, nome: "Social" },
+    ])
 
 
     //Configurações do flatpickr
@@ -121,7 +156,7 @@
 
     //DEFINIÇÃO DE PROPS
     const props = defineProps({
-        cliente: {
+        funcionario: {
             type: Object,
             required: true
         }
@@ -129,7 +164,7 @@
 
     //FUNÇÕES
     function close() {
-        modal.closeEditClient()
+        modal.closeEditFuncter()
     }
 
     const selecionarGenero = (genero) => {
@@ -154,6 +189,22 @@
         }
     }
 
+    const toggleDropdown = () => (dropdownOpen.value = !dropdownOpen.value)
+
+    const isSelecionado = servico =>
+    especialidadesSelecionadas.value.some(s => s.id === servico.id)
+
+    const toggleSelecionado = servico => {
+    const selecionadas = [...(especialidades.value || [])]
+    const index = selecionadas.findIndex(s => s.id === servico.id)
+    if (index > -1) {
+        selecionadas.splice(index, 1)
+    } else {
+        selecionadas.push(servico)
+    }
+    especialidades.value = selecionadas
+    }
+
 
     function handleTelefoneInput(e) {
         const apenasNumeros = e.target.value.replace(/\D/g, '')
@@ -161,31 +212,34 @@
     }
 
     const onSubmit = handleSubmit((val) => {
-        console.log('Editando cliente:', val)
-        toast.success('Cliente editado com sucesso!')
+        console.log('Editando funcionario:', val)
+        toast.success('Funcionário editado com sucesso!')
         resetForm()
         modal.closeEditClient()
     })
 
 
     //COMPUTED's
-    const open = computed(() => modal.editClientOpen)
+    const open = computed(() => modal.editFuncterOpen)
+
+    const especialidadesSelecionadas = computed(() => especialidades.value || [])
 
 
     //WATCH's
-    watch(() => modal.clienteEmEdicao, (cliente) => {
-        if(cliente) resetForm({ values: cliente })
+    watch(() => modal.funcionarioEmEdicao, (funcionario) => {
+        if(funcionario) resetForm({ values: funcionario })
     })
 
+
     // ✅ Watcher — pré-preenche os campos
-    watch(() => modal.clienteEmEdicao, (cliente) => {
-        if (cliente) {
+    watch(() => modal.funcionarioEmEdicao, (funcionario) => {
+        if (funcionario) {
             // Preenche os campos
-            const clienteFormatado = {
-                ...cliente,
-                telefone: formatTelefone(cliente.telefone || ''),
+            const funcionarioFormatado = {
+                ...funcionario,
+                telefone: formatTelefone(funcionario.telefone || ''),
             }
-            resetForm({ values: clienteFormatado })
+            resetForm({ values: funcionarioFormatado })
             }
         },
     { immediate: true })

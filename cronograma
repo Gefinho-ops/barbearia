@@ -34,9 +34,29 @@ views/admin/clientes.vue
     - criar a comunicação de QuickFilters e cliente.                                                              OK
     - setar apenas cliente como parametro de busca do select.                                                     OK
     - implemetar front do editar.                                                                                 OK
-    - realizar commit.
+    - realizar commit.                                                                                            OK
 
 views/admin/funcionarios.vue
+    - criar a comunicação de QuickFilters e funcionario.                                                          OK
+    - setar apenas funcionario como parametro de busca do select.                                                 OK
+    - configurar onMounted para buscar dados da public/data/funcionarios.json.                                    OK
+    - conficgurar TableUsers e TableUserRow para exibir funcionarios.                                             OK
+    - tratar mensagem caso não haja funcionário.                                                                  OK
+    - trabalhar modo escuro.                                                                                      OK
+    - acesso via teclado.
+    - trabalhar responsividade.
+    - criar modal para cadastro de funcionario.                                                                   OK
+    - criar modal para editar funcionario.                                                                        OK
+    - configurar notificações (vue-toastify).                                                                     OK
+    - fazer form de editar funcionario puxas as especialidades.                 
+    - organizar layout do dropdown do multiselect.                                                                OK
+    - organizar layout do dropdown do genero.                                                                     OK 
+    - realizar commit.
+
+views/admin/servicos.vue
+
+
+views/admin/agendamentos.vue
 
 
 LEMBRAR DE CONCERTAR LÓGICA DOS AGENDAMENTOS (AS BUSCAS SEMPRE SERÃO EM AGENDAMENTOS PORÉM POR TIPOS DE STATUS (PENDENTE, CONFIRMADO, CONCLUIDO, CANCELADO, RECUSADO))

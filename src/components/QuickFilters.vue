@@ -47,8 +47,12 @@
 
     //WATCH's
     watch(() => route.meta.filtrosQuick, (novosFiltros) => {
-        if (novosFiltros) options.value = novosFiltros},
-      { immediate: true })// quando muda de rota, tenta pegar os filtros da meta
-
-    watch(selectBusca, (val) => buscaStore.setTipoBusca(val))
+      if (novosFiltros && novosFiltros.length > 0) {
+        options.value = novosFiltros
+        // ✅ sempre define o selectBusca para o primeiro valor da lista
+        selectBusca.value = novosFiltros[0].value
+        // e sincroniza com o store
+        buscaStore.setTipoBusca(novosFiltros[0].value)
+      }
+    }, { immediate: true })
 </script>

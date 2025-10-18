@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
+    "@vueform/multiselect": "^2.6.11",
     "axios": "^1.12.2",
     "flatpickr": "^4.6.13",
     "imask": "^7.6.1",

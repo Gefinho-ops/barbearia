@@ -4,10 +4,14 @@ export const useModalStore = defineStore('modal', {
   state: () => ({
     scheduleOpen: false,
     newSlashOpen: false,
-    addClientOpen: false,
 
+    addClientOpen: false,
     editClientOpen: false,
     clienteEmEdicao: null,
+
+    addFuncterOpen: false,
+    editFuncterOpen: false,
+    funcionarioEmEdicao: null,
   }),
 
   actions: {
@@ -28,5 +32,13 @@ export const useModalStore = defineStore('modal', {
     //Controle do modal de editar cliente
     openEditClient(cliente) { this.clienteEmEdicao = cliente, this.editClientOpen = true },
     closeEditClient() { this.clienteEmEdicao = null, this.editClientOpen = false },
+
+    //Controle do modal de adicionar funcionário
+    openAddFuncter() { this.addFuncterOpen = true },
+    closeAddFuncter() { this.addFuncterOpen = false},
+
+    //Controle de modal de editar funcionário
+    openEditFuncter(funcionario) { this.funcionarioEmEdicao = funcionario, this.editFuncterOpen = true },
+    closeEditFuncter() { this.editFuncterOpen = false}
   }
 })
