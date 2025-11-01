@@ -12,6 +12,11 @@ export const useModalStore = defineStore('modal', {
     addFuncterOpen: false,
     editFuncterOpen: false,
     funcionarioEmEdicao: null,
+
+    addServiceOpen: false,
+    editServiceOpen: false,
+    servicoEmEdicao: null,
+
   }),
 
   actions: {
@@ -39,6 +44,15 @@ export const useModalStore = defineStore('modal', {
 
     //Controle de modal de editar funcionário
     openEditFuncter(funcionario) { this.funcionarioEmEdicao = funcionario, this.editFuncterOpen = true },
-    closeEditFuncter() { this.editFuncterOpen = false}
+    closeEditFuncter() { this.funcionarioEmEdicao = null, this.editFuncterOpen = false},
+
+    //Controle de modal de serviços
+    openAddService() { this.addServiceOpen = true },
+    closeAddService() { this.addServiceOpen = false},
+
+    //Controle de modal de edição de serviços
+    openEditService(servico) { this.servicoEmEdicao = servico, this.editServiceOpen = true },
+    closeEditService() { this.servicoEmEdicao = null, this.editServiceOpen = false }
+
   }
 })

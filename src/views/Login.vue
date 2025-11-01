@@ -28,11 +28,12 @@
 
 <script setup>
     //IMPORTAÇÃO DE MÓDULOS
-    import { ref, onMounted } from 'vue'
+    import { ref, onMounted, watch } from 'vue'
     import { useAuthStore } from '../store/auth'
     import { useAuthService } from '../composables/useAuthService'
     import { useRouter } from 'vue-router'
     import { toast } from 'vue3-toastify'
+    import { eventBus } from '../config/eventBus'
 
     //INSTÂNCIAS
     const auth = useAuthStore()
@@ -44,6 +45,8 @@
     const senha = ref('')
     const lembrar = ref(false)
     const loading = ref(false)
+    const isDark = ref(false)
+
 
     //FUNÇÕES
     async function handleLogin(){
@@ -91,6 +94,20 @@
             loading.value = false
         }
     }
+
+    const darkMode = () => {
+        isDark.value = !isDark.value
+    }
+
+    //WATCH's
+    watch(isDark, (val) => {
+        const html = document.documentElement
+        const theme = val ? 'dark' : 'light'
+        html.setAttribute('data-theme', theme)
+        localStorage.setItem('theme', theme)
+
+        eventBus.theme = theme
+    })
     
     //HOOK's
     onMounted(() => {
@@ -106,6 +123,16 @@
             console.warn('Erro ao carregar login salvo:', err)
             localStorage.removeItem('lembrarUsuario')
         }
+
+           
+        const saved = localStorage.getItem('theme')
+        if (saved) {
+            isDark.value = saved === 'dark'
+            eventBus.theme = saved
+            document.documentElement.setAttribute('data-theme', saved)
+        }
+    
+        
     })
 </script>
 

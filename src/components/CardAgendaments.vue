@@ -1,33 +1,3 @@
-<!-- <template>
-    <section class="ml-[100px]">
-            <div :class="expandido ? 'h-[230px]' : 'h-[50px]' " class="flex-1 border-2 border-raisinBlack w-[900px] mt-[20px] transition-all duration-300 overflow-hidden">
-                <div @click="toggleExpandido" class="my-[5px] mx-[20px] cursor-pointer flex justify-between items-center">
-                    <span class="lg:text-[24px] font-normal text-raisinBlack"><i class="bi bi-alarm"></i> {{ agendado.horario }}</span> 
-                    <span class="lg:text-[24px] font-normal text-raisinBlack"><i class="bi-scissors"></i> {{ agendado.servico }}</span> 
-                    <span class="lg:text-[24px] font-normal text-raisinBlack"><i :class="{'bi-chevron-up':expandido}" class="bi bi-chevron-down"></i></span>                
-                </div>
-                <div class="flex justify-evenly items-center">
-                    <span class="lg:text-[20px] mt-[8px] text-raisinBlack"><i class="bi-person-bounding-box"></i> {{ agendado.cliente }}</span>
-                    <span class="lg:text-[20px] mt-[8px] text-raisinBlack"><i class="bi-person-vcard"></i> {{ agendado.funcionario }}</span>
-                </div>
-                <div class="flex justify-evenly items-center">
-                    <span class="lg:text-[20px] mt-[8px] text-raisinBlack"><i class="bi bi-cash-coin"></i> R$ {{ agendado.valor }}</span>
-                    <span class="lg:text-[20px] mt-[8px] text-raisinBlack"><i class="bi bi-stopwatch"></i> {{ agendado.duracao }}</span>
-                </div>
-                <div class="flex justify-start items-center">
-                    <span class="lg:text-[20px] mt-[8px] ml-[20px] text-raisinBlack">Observações: {{ agendado.observacoes }}</span>
-                </div>
-                <div class="my-[13px] mx-[20px] flex justify-between items-center">
-                    <span> {{ agendado.id }}<i class="bi-scissors"></i></span>
-                    <span>
-                        <button @click="servicoPrestado" class="p-[5px] cursor-pointer text-ghostWhite border border-transparent transition-colors duration-300 mr-[10px] bg-zomp hover:bg-green-400">Confirmar</button>
-                        <button @click="servicoCancelado" class="p-[5px] cursor-pointer text-ghostWhite border border-transparent transition-colors duration-300 bg-amaranth hover:bg-red-500">Cancelar</button>
-                    </span>
-                </div>                                    
-            </div>
-        </section>
-</template> -->
-
 <template>
   <section class="px-4 sm:px-6">
     <div :class="expandido ? 'max-h-[400px]' : 'max-h-[60px]'" tabindex="0" @keydown.enter="toggleExpandido"

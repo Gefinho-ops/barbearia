@@ -1,15 +1,3 @@
-<!-- <template> 
-    <footer class="mb-[15px]">
-        <hr class=" dark:text-ghostWhite w-[85%] ml-[7.5%] text-raisinBlack">
-        <div class="mt-[25px] flex justify-evenly gap-[500px]">
-            <span class="text-raisinBlack font-montserrat">Contato: <a class="no-underline text-raisinBlack font-montserrat" href="#">gerfsonlima@contato.com.br</a></span>
-            <div @click="darkMode" class="dark:bg-white xl:w-[45px] xl:h-5.5 bg-white rounded-[150px] relative cursor-pointer border border-raisinBlack" :class="{ dark : isDark, }" id="trilho">
-                <div class="dark:xl:ml-6 dark:bg-gray-800 dark:xl:border-ghostWhite xl:w-5 xl:h-5 rounded-full bg-gray-300 transform scale-90 absolute left-0 transition-all duration-500"></div>
-            </div>
-        </div>
-    </footer>
-</template> -->
-
 <template>
   <footer class="mt-8 mb-4 px-6">
     <!-- Linha divisória -->
@@ -69,6 +57,4 @@
             document.documentElement.setAttribute('data-theme', saved)
         }
     })
-    
-
 </script>

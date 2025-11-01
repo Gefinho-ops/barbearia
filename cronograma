@@ -54,6 +54,7 @@ views/admin/funcionarios.vue
     - realizar commit.
 
 views/admin/servicos.vue
+    - serviço também terá mecânica de status (ativo/inativo)
 
 
 views/admin/agendamentos.vue
