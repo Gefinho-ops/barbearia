@@ -4,6 +4,7 @@ export const useModalStore = defineStore('modal', {
   state: () => ({
     scheduleOpen: false,
     newSlashOpen: false,
+    nomeServicoParaAgendar: null,
 
     addClientOpen: false,
     editClientOpen: false,
@@ -21,8 +22,9 @@ export const useModalStore = defineStore('modal', {
 
   actions: {
     //Controle do modal de agendamento
-    open() { this.scheduleOpen = true },
-    close() { this.scheduleOpen = false },
+    open() { this.nomeServicoParaAgendar = null, this.scheduleOpen = true },
+    openAgendamentoComServico(nomeDoServico) { this.nomeServicoParaAgendar = nomeDoServico, this.scheduleOpen = true },
+    close() { this.nomeServicoParaAgendar = null, this.scheduleOpen = false },
     toggle() { this.scheduleOpen = !this.scheduleOpen },
 
     //Controle do modal de corte rápido

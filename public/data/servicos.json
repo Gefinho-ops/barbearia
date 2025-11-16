@@ -1,0 +1,20 @@
+[
+    {
+        "id":"1",
+        "nome":"Corte chanel",
+        "valor":150.00,
+        "duracao":60,
+        "descricao":"Corte de cabelo estilo chanel, elegante e moderno.",
+        "categoria":"Cabelo",
+        "profissional":"Ana Silva"
+    },
+    {
+        "id":"2",
+        "nome":"Corte afro",
+        "valor":30.00,
+        "duracao":20,
+        "descricao":"Corte social com laterais feitas em máquina e topo com acabemento em tesoura.",
+        "categoria":"Cabelo",
+        "profissional":"Pablo Raul Lins"
+    }
+]

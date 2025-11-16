@@ -61,12 +61,14 @@
 
         if(cacheStore.existeCache(nomeCache)){
             return cacheStore.obterForm(nomeCache)
-        }else{
-            const res = await fetch('/data/agendamentos.json')
-            const dados = await res.json()
-            cacheStore.salvarForm(nomeCache, dados)
-            return dados
         }
+
+        const res = await fetch('/data/agendamentos.json', { cache: 'no-store' })
+        const dados = await res.json()
+        
+        cacheStore.salvarForm(nomeCache, dados)
+        return dados
+        
     }
 
 

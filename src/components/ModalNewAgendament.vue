@@ -61,11 +61,11 @@
             </div>
             <div class="flex">
               <label for="valor" class="dark:text-ghostWhite font-montserrat ml-[20px] mt-1">Valor: R$ </label>
-              <input type="text" v-model="valor" id="valor" class="dark:text-ghostWhite ml-[5px] rounded-[10px] outline-none p-[5px] border border-zomp w-[80px] h-[35px] focus:border-2" readonly>  
+              <input type="text" v-model="valor" id="valor" class="dark:text-ghostWhite ml-[5px] rounded-[10px] outline-none p-[5px] border border-zomp w-[60px] h-[35px] focus:border-2" readonly>  
             </div>
             <div class="flex">
-              <label for="duracao" class="dark:text-ghostWhite font-montserrat ml-[20px] mt-1">Duração:</label>
-              <input type="text" v-model="duracao" id="duracao" class="dark:text-ghostWhite ml-[5px] rounded-[10px] outline-none p-[5px] border border-zomp w-[80px] h-[35px] focus:border-2" readonly>
+              <label for="duracao" class="dark:text-ghostWhite font-montserrat ml-[20px] mt-1">Duração: </label>
+              <input type="text" v-model="duracao" id="duracao" class="dark:text-ghostWhite ml-[5px] rounded-[10px] outline-none p-[5px] border border-zomp w-[50px] h-[35px] focus:border-2" readonly><span class="pt-1 pl-1">min</span>
             </div> 
           </div>
           <div class="mt-[15px]">
@@ -94,7 +94,7 @@
     import { useFormValidation } from '../composables/useFormValidation'
     import * as yup from 'yup'
     import { useFormaCacheStore } from '../composables/formCache'
-import { toast } from 'vue3-toastify'
+    import { toast } from 'vue3-toastify'
 
     //Define o schema yup com as regras de validação
     const schema = { 
@@ -116,9 +116,20 @@ import { toast } from 'vue3-toastify'
     const { value: cliente, errorMessage: clienteError } = createField('cliente')
     const { value: funcionario, errorMessage: funcionarioError } = createField('funcionario')
     const { value: servico, errorMessage: servicoError } = createField('servico')
+
+    watch(() => modal.nomeServicoParaAgendar, (nome) => {
+        if (!nome) return
+        servico.value = nome
+      },
+      { immediate: true }
+    )
+
     const { value: dataSelecionada, errorMessage: dataError } = createField('dataSelecionada')
     const { value: horarioSelecionado, errorMessage: horaError } = createField('horarioSelecionado')
     const { value: observacoes } = createField('observacoes')
+
+    const valor = ref('')
+    const duracao = ref('')
 
     const horariosDisponiveis = ref(['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00'])
     const dropdown = ref(false)
@@ -158,6 +169,29 @@ import { toast } from 'vue3-toastify'
     //WATCH's
     watch(values, (novosDados) => {                                                // Sempre que o usuário alterar qualquer campo, salva no cache
       formCache.salvarForm('agendamento', { ...novosDados })}, { deep: true })
+
+    watch(() => modal.servicoParaAgendar, (dados) => {
+      if (!dados) return
+      servico.value = dados.nome
+    }, { immediate: true })
+
+    watch(servico, async (novoServico) => {
+      try{
+        const dadosServico = await fetch('/data/servicos.json')
+        const resultado = await dadosServico.json().then(servicos => servicos.find(s => s.nome === novoServico))
+        if (resultado) {
+          valor.value = resultado.valor
+          duracao.value = resultado.duracao
+          funcionario.value = resultado.profissional
+        } else {
+          valor.value = ''
+          duracao.value = ''
+          funcionario.value = ''
+        }
+      }catch (error) {
+        console.error('Erro ao carregar serviços:', error)
+      }
+      }, { immediate: true })
 
 
     //Configurações do flatpickr

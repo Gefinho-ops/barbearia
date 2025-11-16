@@ -8,7 +8,7 @@
             <form @submit.prevent="handleLogin" class="flex flex-col md:items-center">
                 <div class="flex flex-col">
                     <div><i class="bi bi-envelope-at relative left-[20px] text-zomp"></i><input v-model="email" type="text" placeholder="E-mail..." required class="pl-[25px] py-[5px] font-montserrat xl:w-[400px] lg:w-[350px] md:w-[300px] sm:w-[460px] min-w-[300px] outline-none border border-zomp rounded-[6px] focus:border-2 dark:text-ghostWhite"></div>
-                    <div><i class="bi bi-lock relative left-[20px] text-zomp"></i><input v-model="senha" type="password" placeholder="Senha..." required class="pl-[25px] py-[5px] mt-[10px] font-montserrat xl:w-[400px] lg:w-[350px] md:w-[300px] sm:w-[460px] min-w-[300px] outline-none border border-zomp rounded-[6px] focus:border-2 dark:text-ghostWhite"></div>
+                    <div><i :class="errado ? 'bi bi-lock relative left-[20px] text-amaranth' : 'bi bi-lock relative left-[20px] text-zomp'"></i><input v-model="senha" type="password" placeholder="Senha..." required @input="isDigit" :class="errado ? 'pl-[25px] py-[5px] mt-[10px] font-montserrat xl:w-[400px] lg:w-[350px] md:w-[300px] sm:w-[460px] min-w-[300px] outline-none border border-amaranth rounded-[6px] focus:border-2 dark:text-ghostWhite' : 'pl-[25px] py-[5px] mt-[10px] font-montserrat xl:w-[400px] lg:w-[350px] md:w-[300px] sm:w-[460px] min-w-[300px] outline-none border border-zomp rounded-[6px] focus:border-2 dark:text-ghostWhite'"></div>
                 </div>
                 <div class="flex justify-between md:justify-center lg:justify-between">
                     <div class="mt-[10px]">
@@ -45,6 +45,7 @@
     const senha = ref('')
     const lembrar = ref(false)
     const loading = ref(false)
+    const errado = ref(false)
     const isDark = ref(false)
 
 
@@ -52,6 +53,7 @@
     async function handleLogin(){
         try {
             loading.value = true
+            errado.value = false
             authService.clearError()
 
             await authService.login({ email: email.value, senha: senha.value })
@@ -87,6 +89,8 @@
         } catch (error) {
             if (authService.error) {
                 toast.error(authService.error)
+                errado.value = true
+                senha.value = ''
             } else {
                 toast.error('Erro durante o login')
             }
@@ -97,6 +101,11 @@
 
     const darkMode = () => {
         isDark.value = !isDark.value
+    }
+
+
+    const isDigit = () => {
+        errado.value = false
     }
 
     //WATCH's

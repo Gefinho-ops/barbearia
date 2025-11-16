@@ -3,6 +3,8 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
+
+  /* CORES */
   --color-ghostWhite: #f4f4f8;
   --color-raisinBlack: #262730;
   --color-zomp: #43aa8b;
@@ -12,6 +14,7 @@
   --color-dogwoodRose: #DC136C;
   --color-pictonBlue: #4EA5D9;
 
+  /* FONTES */
   --font-montserrat: "Montserrat", sans-serif;
 }
 

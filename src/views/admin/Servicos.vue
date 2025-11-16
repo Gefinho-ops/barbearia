@@ -1,7 +1,9 @@
 <template>
     <LableTableServices/>
-    <CardServices class="mt-3"/>
-
+    <div class="mt-3 flex gap-2.5">
+        <CardServices v-for="servico in servicos" :key="servico.id" :servico="servico"/>
+    </div>
+    
     <div>
        <ModalAddService/>
        <ModalEditService/>
@@ -17,7 +19,9 @@
 
     //IMPORTAÇÃO DE MÓDULOS
     import { useBuscaStore } from '../../store/busca';
-    import { onMounted } from 'vue';
+    import { ref, onMounted } from 'vue';
+
+    const servicos = ref([])
 
     //INSTÂNCIAS
     const buscaStore = useBuscaStore()
@@ -26,5 +30,8 @@
     onMounted(async() => {
         buscaStore.resetBusca()
         buscaStore.setTipoBusca('servicos')
+
+        const res = await fetch('/data/servicos.json', { cache: 'no-store' })
+        servicos.value = await res.json()
     })
 </script>
